@@ -6,10 +6,7 @@ In this repo, I share the code and explain the process on how you can replicate 
 
 I was able to collect images, which I then turned into a video again:
 
-<video width="500" controls>
-  <source src="https://dms.licdn.com/playlist/vid/v2/D4E05AQG8Oqlj82KBCA/mp4-720p-30fp-crf28/B4EZu2.hbbKcCM-/0/1768301403876?e=1769533200&v=beta&t=9aNf6FdDRCoz75MZMCquKiuNUrOmd4Uxu3cVpnpbVfk" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+[![Watch the video](photos/video_frame.png)](https://dms.licdn.com/playlist/vid/v2/D4E05AQG8Oqlj82KBCA/mp4-720p-30fp-crf28/B4EZu2.hbbKcCM-/0/1768301403876?e=1769533200&v=beta&t=9aNf6FdDRCoz75MZMCquKiuNUrOmd4Uxu3cVpnpbVfk)
 
 
 # Hardware
