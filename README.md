@@ -51,6 +51,35 @@ git clone https://github.com/aureliusenterprise/bird_image_recognition.git
 ```
 
 
+# Overall approach
+
+The overall approach is following a classicial machien learning approach:
+ - collect an intitial dataset as a basis to train a model
+ - annotate the data manually and create a training dataset
+ - Train the model using a pre-trained model
+ - deploy the trained model to the Raspberry PI and start the bird detection
+
+Some important points:
+ - Basemodel is based on a 160*160 images, thus make sure that the images in the training dataset are resized to this size or at least are quadratic. Otherwise the resizing will distort the image significantly reducing the benefit of a pre-trained model. 
+ - Basemodel is pretrained with 1000 classes including birds.
+ - Model is working well with different light conditions
+ - Having all kinds of preprocessing (cropping & resizing) in the model resulted in problems doing the GradCAM to evaluate wrong positives and false negatives afterwards. Thus, these operations were applied before the model is applied.
+ - I share the model I have used as a transformer in ```bird_classifier_int8.tflite```.
+
+
+# Step by step 
+
+In this section I will provide some more details on what the different code part do and how they are called. 
+
+## Collect data to create a trainings dataset
+
+
+## Create dataset
+
+## Train the model
+
+## Detect birds with a trained model
+
 start on raspberry pi with
 
 ```
