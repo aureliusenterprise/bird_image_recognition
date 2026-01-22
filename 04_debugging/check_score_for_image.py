@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 # ================================
 # SETTINGS
 # ================================
-base_dir = 'jonathan/'
+base_dir = ''
 
 MODEL_PATH = "bird_classifier_int8.tflite"
 

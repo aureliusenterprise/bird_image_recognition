@@ -26,7 +26,7 @@ ORIG_W = 640
 ORIG_H = 480
 
 OUTPUT_MODEL = "bird_classifier.h5"
-base_dir = "jonathan/"
+base_dir = ""
 
 #model = keras.models.load_model("model.h5")
 model2 = keras.models.load_model(OUTPUT_MODEL)

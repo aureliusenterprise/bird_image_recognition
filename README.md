@@ -72,21 +72,62 @@ Some important points:
 In this section I will provide some more details on what the different code part do and how they are called. 
 
 ## Collect data to create a trainings dataset
+In the folder 01_detect_changes are 2 files. The file detected_changes.py connects to the camera, looks for changes in a frame. If the area of a change is greater than 1000 then the frame is stored as a file with a running number in folder ```/var/www/html/```.
 
+This script has to be executed on the Raspberry PI. The python file can be run on the Raspberry PI in the background by executing on the Raspberry PI the following command in the directory where the repo has been cloned to.
 
-## Create dataset
-
-## Train the model
-
-## Detect birds with a trained model
-
-start on raspberry pi with
-
-```
+```bash
 nohup ./start_video_detection.bsh > job.log 2>&1 &
 ```
 
 
-Post process images to have the right settings for linkedin.
+## Create dataset
 
-ffmpeg -i output_video2.mp4 -c:v libx264 -profile:v baseline -level 4.2 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k output_linkedin2.mp4
+The file '''post_process_images.py''' can be run on your laptop to download all files from the Raspberry PI as a basis to construct a dataset for training the model. 
+
+## Train the model
+
+The next step is to annotate the downloaded images and classify them as showing a bird or not showing a bird.
+The annotated images can be used to create a training and validation dataset. The required directory structure is
+
+ - dataset
+   - training
+     - 0_non_bird
+     - 1_bird
+   - validate
+     - 0_non_bird
+     - 1_bird
+
+In these directories the individual files are stored.
+
+Then the training can be performed using the script ```train_bird_classifier_v2.py```. The training results in a file ```bird_classifier_int8.tflite``` which is the data required by the transformer. The file I have trained is included in the root directory of this repo.
+
+
+## Detect birds with a trained model
+
+The file ```bird_classifier_int8.tflite``` has to be transfered to the Raspberry PI. 
+The detection of the birds requires that a web cam is connected otherwise the script will fail.
+Thge detection can be started from the root directory of this repo on the Raspberry PI with the command below:
+
+```
+nohup ./start_bird_detection.bsh > job.log 2>&1 &
+```
+
+The script uses the file ```bird_cam_v2.py```. 
+
+
+## Debugging
+
+In some cases and during development I wanted to investigate why I had false positive and false negative image detection. For that purpuse the debugging directory. There are two scripts: 
+ - ```check_score_for_image.py``` downloads a file from the Raspberry PI and applies the model and return the result of the m odel
+ - ```gradcam_test.py``` reads a file from a local directory and indicates which part of the image was most influential on the decision to classify the image.
+
+
+# Post processing
+
+For publishing a video it is necessary to transform the video into a specific format. The video must have a square format and a certain schema of the mp4 file. The rigth settings can be created with the following command, which can be executed in the WSL.
+
+```ffmpeg -i output_video2.mp4 -c:v libx264 -profile:v baseline -level 4.2 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k output_linkedin2.mp4```
+
+
+Feel free to send me some feedback!
